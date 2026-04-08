@@ -1,19 +1,5 @@
 from game_state import GameState
-
-
 class GameEnv:
-    """
-    Instance of a Cheese Hunter environment. Stores the dimensions of the environment, initial player position,
-    goal position, lever positions, trap positions, mapping of levers to traps, time limit, cost target,
-    the tile type of each grid position, and a list of all available actions.
-
-    The grid is indexed top to bottom, left to right (i.e. the top left corner has coordinates (0, 0) and the bottom
-    right corner has coordinates (n_rows-1, n_cols-1)).
-
-    You may use and modify this class however you want. Note that evaluation on GradeScope will use an unmodified
-    GameEnv instance as a simulator.
-    """
-
     # Input file symbols
     SOLID_TILE = "X"
     LADDER_TILE = "="

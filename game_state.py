@@ -1,14 +1,4 @@
-
 class GameState:
-    """
-    Instance of a Cheese Hunter state. row and col represent the current player position. trap_status is 1 for
-    each activated lever/trap, and 0 for each remaining lever/trap.
-
-    You may use this class and its functions. You may add your own code to this class (e.g. get_successors function,
-    get_heuristic function, etc), but should avoid removing or renaming existing variables and functions to ensure
-    Tester functions correctly.
-    """
-
     def __init__(self, row, col, trap_status):
         self.row = row
         self.col = col
