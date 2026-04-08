@@ -2,7 +2,7 @@ from solution import Solver
 from game_env import GameEnv
 
 if __name__ == "__main__":
-    env = GameEnv(testcase=1)
+    env = GameEnv("testcases/level_1.txt")
     solver = Solver(env)
     print("Running A* search...")
     solution = solver.search_a_star()
