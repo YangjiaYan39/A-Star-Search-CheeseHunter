@@ -1,107 +1,108 @@
 # Intelligent Path Planning with A* Search (CheeseHunter)
 
-A search optimization project for solving a multi-goal grid planning problem using a custom A* heuristic.
-
-Reduced node expansions by over 98% through problem-specific heuristic design.
+A project focused on improving search efficiency in a multi-goal path planning problem using a custom-designed A* heuristic.
 
 ---
 
 ## Overview
 
-This project focuses on solving a grid-based planning problem where an agent must activate all levers before reaching the goal.
+This project solves a grid-based planning problem where an agent must activate multiple required targets (levers) before reaching the final goal.
 
-Unlike standard shortest-path problems, the agent must visit multiple required locations while navigating obstacles and traps.
-This significantly increases the complexity of the search space.
+Unlike standard shortest-path problems, the agent must visit all required locations under environmental constraints such as obstacles and traps.
+This significantly increases the search complexity and makes naive approaches inefficient.
 
 ---
 
-## Methods
+## Approach
 
-### Uniform Cost Search (Baseline)
+### Baseline: Uniform Cost Search (UCS)
 
-Uniform Cost Search (UCS) guarantees optimal solutions but becomes inefficient as the state space grows.
+Uniform Cost Search guarantees optimal solutions but performs poorly due to the large state space.
 
-### A* Search (Optimized)
+### Optimized: A* Search
 
-A* search is implemented with a custom heuristic tailored for this multi-goal setting, significantly reducing unnecessary exploration.
+To address this, I implemented A* search with a problem-specific heuristic to guide the search more effectively and reduce unnecessary exploration.
 
 ---
 
 ## Heuristic Design
 
-The heuristic combines three components:
+The heuristic is designed to estimate the remaining cost of completing all required objectives. It combines:
 
-1. Distance from the current position to the nearest unactivated lever
-2. A minimum spanning tree (MST) over all remaining levers
-3. Distance from the final lever to the goal
+* Distance from the current position to the nearest unvisited target
+* A Minimum Spanning Tree (MST) over all remaining targets
+* Distance from the final target to the goal
 
-All distances are computed using obstacle-aware BFS rather than Manhattan distance,
-ensuring the heuristic reflects actual path constraints.
+All distances are computed using obstacle-aware BFS instead of simple Manhattan distance, ensuring the estimate reflects the actual environment.
 
-The heuristic remains admissible while providing a tighter lower bound than simple distance metrics.
+This results in a tighter and more informative heuristic while maintaining admissibility.
 
 ---
 
-## Optimization Techniques
+## Key Optimizations
 
-* Precomputed BFS distance maps
-* Bitmask-based state representation
-* MST caching for repeated queries
-* Dominance pruning to remove suboptimal states
-* Heuristic memoization to avoid recomputation
+* Precomputed BFS distance maps between important points
+* Bitmask-based state representation for efficient state tracking
+* MST-based lower bound estimation
+* Memoization to avoid repeated computations
+* Early state pruning to reduce unnecessary expansions
 
 ---
 
 ## Results
 
-Performance improvements on large test cases:
+On a sample testcase (`level_1.txt`):
 
-* Node expansions reduced from over 4,000,000 to ~67,000
-* More than 98% reduction in search space
-* Runtime reduced from ~120s to ~4.5s
+* Path cost: **17.4**
+* Nodes expanded: **16**
+* Maximum frontier size: **2**
 
-The improvement becomes more significant as the problem size increases.
+Compared to uninformed search, the heuristic significantly reduces the number of explored states and improves efficiency.
 
 ---
 
 ## Why This Project Matters
 
-This project demonstrates how problem-specific heuristic design can dramatically improve search efficiency.
+This project demonstrates how domain-specific heuristics can drastically improve search performance.
 
-Instead of relying on generic distance metrics, the solution integrates:
+Instead of relying on simple distance metrics, the solution integrates:
 
-* Obstacle-aware shortest path computation (BFS)
+* Local shortest path computation (BFS)
 * Global structure estimation (MST)
-* State pruning and memoization
+* Efficient state representation and pruning
 
-These ideas are widely applicable in:
+These techniques are directly applicable to:
 
 * AI planning systems
 * Robotics navigation
 * Game AI
-* Large-scale optimization problems
+* Optimization problems with multiple constraints
 
 ---
 
 ## Project Structure
 
-* `solution.py` — A* and UCS implementation, heuristic design, pruning, and optimization
-* `run.py` — entry point to execute the solver
-* `game_env.py` — environment definition required to run the solver
-* `game_state.py` — state representation for the environment
+* `solution.py` — A* implementation, heuristic design, and optimizations
+* `run.py` — entry point for running the solver
+* `game_env.py` — environment definition
+* `game_state.py` — state representation
+* `testcases/` — input levels for testing
 * `README.md` — project documentation
-* `AStar_Search_Report.pdf` — detailed report
 
 ---
 
 ## How to Run
 
-Clone the repository and run:
-
 ```bash
 git clone https://github.com/YangjiaYan39/A-Star-Search-CheeseHunter
 cd A-Star-Search-CheeseHunter
 python run.py
+```
+
+The default configuration runs:
+
+```python
+GameEnv("testcases/level_1.txt")
 ```
 
 ---
@@ -110,30 +111,18 @@ python run.py
 
 ```text
 Running A* search...
-Solution: ['UP', 'RIGHT', 'RIGHT', 'DOWN', ...]
-Cost: 40.9
-Nodes expanded: 62
+Solution: ['wl', 'sl', 'sl', 'sl', 'c', 'c', 'wr', 'sr', 'sr', 'sr']
+Cost: 17.4
+Nodes expanded: 16
 
 === Heuristic Performance ===
-Nodes expanded: 62
-Frontier max size: 18
+Nodes expanded: 16
+Frontier max size: 2
 ```
 
 ---
 
-## Note
-
-This project uses the minimal CheeseHunter environment files required to run the solver:
-
-* `game_env.py`
-* `game_state.py`
-
-These files are included only to ensure reproducibility.
-The search logic and heuristic design are implemented in `solution.py`.
-
----
-
-## Technologies Used
+## Technologies
 
 * Python
 * A* Search
