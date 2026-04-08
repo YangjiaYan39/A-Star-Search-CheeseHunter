@@ -1,14 +1,5 @@
 from game_state import GameState
 
-"""
-game_env.py
-
-This file contains a class representing a Cheese Hunter environment. You should make use of this class in your
-solver.
-
-COMP3702 Assignment 1 "Cheese Hunter" Support Code, 2025
-"""
-
 
 class GameEnv:
     """
@@ -73,10 +64,6 @@ class GameEnv:
     }
 
     def __init__(self, filename):
-        """
-        Process the given input file and create a new game environment instance based on the input file.
-        :param filename: name of input file
-        """
         try:
             f = open(filename, "r")
         except FileNotFoundError:

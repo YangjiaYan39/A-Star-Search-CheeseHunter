@@ -1,11 +1,3 @@
-"""
-game_state.py
-
-This file contains a class representing a Cheese Hunter state. You should make use of this class in your solver.
-
-COMP3702 Assignment 1 "Cheese Hunter" Support Code, 2025
-"""
-
 
 class GameState:
     """
