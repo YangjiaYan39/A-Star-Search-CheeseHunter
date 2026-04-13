@@ -104,6 +104,16 @@ This project highlights the importance of combining algorithm design with practi
 
 ---
 
+## Acknowledgement
+
+This project is based on the COMP3702 Artificial Intelligence assignment.
+
+The environment and support code (e.g., `game_env.py`, `game_state.py`, `testcases`) were provided by the course.
+
+My contribution focuses on implementing and optimizing the search algorithm in `solution.py`, including heuristic design and performance improvements.
+
+---
+
 ## How to Run
 
 ```bash
